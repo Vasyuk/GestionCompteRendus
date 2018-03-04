@@ -48,6 +48,6 @@ test:
 #
 production:
   <<: *default
-  database: GestionCompteRendus_production
-  username: GestionCompteRendus
-  password: <%= ENV['GESTIONCOMPTERENDUS_DATABASE_PASSWORD'] %>
+  database: myapp_production
+  username: myapp
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
