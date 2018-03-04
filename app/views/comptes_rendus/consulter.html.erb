@@ -1,0 +1,23 @@
+<h3>Comptes-Rendus : <%= @visite.numero%>/ <%= @size%></h3>
+<div class = "col-md-6">
+  <h5>Id</h5>
+  <h4><%= @visite.id%></h4>
+  <h4>Date Visite</h4>
+  <h5><%= @visite.date_visite%></h5>
+  <h4>Praticien</h4>
+  <h5><%= @praticien.firstname + " " + @praticien.lastname%></h5>
+  <h4>Motif</h4>
+  <h5><%= @visite.motif%></h5>
+  <h4>Bilan</h4>
+  <p style = "text-align:center"><%= @visite.bilan%></p>
+</div>
+<div class = "col-md-6">
+  <h3>Produits</h3>
+    <h5><%= @visite.produit1%></h5>
+    <h5><%= @visite.produit2%></h5>
+  <h3>Echanitllons</h3>
+</div>
+<div style = "text-align:center" class = "col-md-12">
+  <%= link_to "Precedent", consulter_path( :prev => @visite.numero ), class: "btn-primary btn" %>
+  <%= link_to "Suivant", consulter_path( :next => @visite.numero ),class: "btn-primary btn" %>
+</div>

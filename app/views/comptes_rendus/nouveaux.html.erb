@@ -1,0 +1,47 @@
+<h3>NUMERO : <%= @visite.numero%></h3>
+<%= form_for @visite, url: {action: "saveVisite",  :id => @visite}, method: :post do |f| %>
+  <div class = "col-md-6">
+    <h4><%= f.label :date_visite, "Date" %></h4>
+    <h5><%= f.date_field :date_visite, class: "form-control" %></h5>
+    <h4><%= f.label :idPraticien, "Praticien" %></h4>
+    <h5><%= f.collection_select :idPraticien, @praticiens.order(:firstname),:id,:firstname, {}, {class: "form-control"} %></h5>
+    <h4><input type="checkbox" class = "showHideRemplacent"></input><%= f.label :idPraticienRemplacant, "Remplacent" %></h4>
+    <h5><%= f.collection_select :idPraticienRemplacant, @praticiens.order(:firstname),:id,:firstname,{},{:disabled => "disabled" } %></h5>
+    <h4><%= f.label :coefficient %></h4>
+    <h5><%= f.text_field :coefficient, class: "form-control" %></h5>
+    <h4><%= f.label :motif %></h4>
+    <h5><%= f.collection_select :motif, @motifs,:title,:title, {}, {class: "form-control"} %></h5>
+    <h4><%= f.label :bilan %></h4>
+    <h5><%= f.text_area :bilan, class: "form-control" %></h5>
+  </div>
+  <div class = "col-md-6">
+    <h3>Produits</h3>
+    <h4><%= f.label :produit1, "Produit 1 : " %></h4>
+    <h5><%= f.collection_select :produit1, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {class: "form-control"} %></h5>
+    <h4><%= f.label :produit2, "Produit 2 : " %></h4>
+    <h5><%= f.collection_select :produit2, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {class: "form-control"} %></h5>
+    <h3>Echanitllons</h3>
+    <div class = "echantillon">
+      <%= f.collection_select :produit1, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial %>
+    </div>
+  </div>
+  <div style = "text-align:center" class = "col-md-12">
+    <%= f.submit "Valider", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+$( document ).ready(function() {
+    $('#visite_idPraticienRemplacant').css('visibility', "hidden")
+
+  $('.showHideRemplacent').click(function() {
+    if ($('input.showHideRemplacent').is(':checked')) {
+      $('#visite_idPraticienRemplacant').prop('disabled', false)
+      $('#visite_idPraticienRemplacant').css('visibility', "visible")
+    }else{
+      $('#visite_idPraticienRemplacant').prop('disabled', true)
+      $('#visite_idPraticienRemplacant').css('visibility', "hidden")
+    }
+  });
+});
+</script>

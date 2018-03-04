@@ -1,0 +1,3 @@
+class Echanitllon < ApplicationRecord
+
+end
