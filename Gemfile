@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'remotipart', '~> 1.2'
 gem 'kaminari', '~> 1.1'
 gem 'carrierwave', '~> 1.0'
