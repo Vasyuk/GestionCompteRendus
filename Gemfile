@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'sqlite3'
 gem 'remotipart', '~> 1.2'
 gem 'kaminari', '~> 1.1'
 gem 'carrierwave', '~> 1.0'
@@ -18,7 +19,6 @@ gem 'jbuilder',     '2.7.0'
 gem 'jquery-turbolinks'
 
 group :development, :test do
-  gem 'mysql2', '~> 0.4.10'
   gem 'byebug',  '9.0.6', platform: :mri
 end
 

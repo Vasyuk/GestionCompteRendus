@@ -73,6 +73,7 @@ produits.each_slice(6) do |depotlegal, nomcommercial,code,composition,effets,con
 end
 
 user = User.new(
+  :id => "eg1w",
   :username => "lvillachane",
   :email => "lvillachane@gmail.com",
   :password => "jux7g",
@@ -104,7 +105,7 @@ motif5 = Motif.new(
   :title => 'Autre',
   :abbreviation => 'Au'
 )
-
+user.save!
 motif1.save!
 motif2.save!
 motif3.save!
