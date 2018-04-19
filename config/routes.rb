@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   root to: "home#index"
 
-  devise_for :users, controllers: {
-       sessions: 'users/sessions'
-  }
+  devise_for :users, skip: [:sessions], controllers: { shared: 'users/shared' ,registrations: 'users/registrations' , sessions: 'users/sessions', passwords: 'users/passwords' }
+  as :user do
+    get 'signin', to: 'users/sessions#new', as: :new_user_session
+    post 'signin', to: 'users/sessions#create', as: :user_session
+    delete 'signout', to: 'users/sessions#destroy', as: :destroy_user_session
+    get 'profile', to: 'users/registrations#edit'
+    get 'new', to: 'users/registrations#new'
+    get  'show', to: 'users/registrations#show'
+  end
 
   #comptes_rendus
   get '/consulter', to: 'comptes_rendus#consulter'

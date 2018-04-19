@@ -1,9 +1,8 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :visites
   self.primary_key = :id
   attr_accessor :login
-  has_many :visites
+
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -13,8 +12,7 @@ class User < ApplicationRecord
       where(conditions.to_h).first
     end
   end
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
+  devise :database_authenticatable,
+          :rememberable, :trackable, :validatable
 
 end

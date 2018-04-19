@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20180219150349) do
   end
 
   create_table "visites", force: :cascade do |t|
-    t.integer "user_id"
+    t.string "user_id"
     t.integer "numero"
     t.datetime "date_visite"
     t.integer "idPraticien"
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20180219150349) do
     t.string "produit1"
     t.string "produit2"
     t.string "status"
-    t.index ["user_id"], name: "index_visites_on_user_id"
   end
 
 end

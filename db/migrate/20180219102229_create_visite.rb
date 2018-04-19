@@ -1,7 +1,7 @@
 class CreateVisite < ActiveRecord::Migration[5.1]
   def change
     create_table :visites do |t|
-      t.belongs_to :user, index: true
+      t.string :user_id
       t.integer :numero
       t.datetime :date_visite
       t.integer :idPraticien
