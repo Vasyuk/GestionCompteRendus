@@ -47,7 +47,7 @@ class ComptesRendusController < ApplicationController
   def saveVisite
     @visite = Visite.find(params[:id])
     @visite.update_attributes(visite_params)
-    if  @visite.update_attributes(status: "FI")
+    if @visite.update_attributes(status: "FI")
       redirect_to root_path
     end
   end
