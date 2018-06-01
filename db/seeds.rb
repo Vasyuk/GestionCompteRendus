@@ -154,7 +154,6 @@ visiteurs.each_slice(10) do |id, nom, prenom, adresse, cp, ville, dateembauche, 
   password = dateembauche.sub!(" 00:00:00", "")
   password = password.split("-")
   password = password[2] + "-" + password[1] + "-" +password[0]
-  puts password
   User.create!(:id => id,:nom =>nom,:prenom => prenom ,:adresse => adresse , :cp => cp, :ville => ville, :dateembauche => dateembauche, :labcode => labcode, :password => password, :password_confirmation => password, :regcode => regcode, :typeUser => typeUser )
 end
 familles.each_slice(2) do |fam_code, fam_libelle|

@@ -1,1 +1,36 @@
-autres_visiteurs
+<div>
+  <h5><%= select(:post, :type_id, @regions.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
+</div>
+<div>
+  <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
+</div>
+<div>
+  <h5><%= select(:post, :type_id, @labos.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
+</div>
+<div>
+  <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
+</div>
+<div class = "divSelectProduit">
+</div>
+<table class="table" style="display:none">
+  <thead>
+  <tr>
+      <th>Nom</th>
+      <th>Composition</th>
+      <th>Effets</th>
+      <th>Contreindictions</th>
+  </tr>
+  </thead>
+  <tbody class ="praticienTabl">
+    <tr>
+      <td id = "nomcommercial">
+      </td>
+      <td id = "composition">
+      </td>
+      <td id = "effets">
+      </td>
+      <td id = "contreindic">
+      </td>
+    </tr>
+  </tbody>
+</table>

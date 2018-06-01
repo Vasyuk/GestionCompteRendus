@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20180531173959) do
 
   create_table "echanitllons", force: :cascade do |t|
     t.integer "visite_id"
+    t.string "id_produit", null: false
     t.index ["visite_id"], name: "index_echanitllons_on_visite_id"
   end
 

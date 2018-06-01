@@ -1,3 +1,71 @@
 <div>
-    <h5><%= select(:value, :nomcommercial, @produits.order(:nomcommercial)) %></h5>
+  <h5><%= select(:post, :famille_id, @familles.collect {|f| [ f.fam_libelle , f.fam_code] }) %></h5>
 </div>
+<div>
+  <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
+</div>
+<div class = "divSelectProduit">
+</div>
+<table class="table" style="display:none">
+  <thead>
+  <tr>
+      <th>Nom</th>
+      <th>Composition</th>
+      <th>Effets</th>
+      <th>Contreindictions</th>
+  </tr>
+  </thead>
+  <tbody class ="praticienTabl">
+    <tr>
+      <td id = "nomcommercial">
+      </td>
+      <td id = "composition">
+      </td>
+      <td id = "effets">
+      </td>
+      <td id = "contreindic">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  $('#selecFamille').click(function(){
+    $('.table').css('display', 'none')
+    $.ajax({
+      url: "/medicaments",
+      type: 'get',
+      data: "codeFamille=" + $('#post_famille_id').val(),
+      success: function(data) {
+        if (data == ""){
+          $('.divSelectProduit').empty()
+          $('.divSelectProduit').append('<a>Il n\'y pas de médicament pour ce type</a>')
+        }else{
+          $('.divSelectProduit').empty()
+          $('.divSelectProduit').append('<select id ="selectProduit"></select>')
+          for(var i = 0; i < data.length; i++){
+            $('#selectProduit').append('<option value ="'+data[i].id +'">'+data[i].nomcommercial+'</option>')
+          }
+          $('.divSelectProduit').append('<a class = "btn btn-primary" id = "selecProduit">Selectioner produit</a>')
+          selecProduit()
+        }
+      }
+    });
+  });
+
+  function selecProduit(){
+    $('#selecProduit').click(function(){
+      $.ajax({
+        url: "/medicaments",
+        type: 'get',
+        data: "codeProduit=" + $('#selectProduit').val(),
+        success: function(data) {
+          $('.table').css('display', 'block')
+          $('#nomcommercial').text(data.nomcommercial)
+          $('#composition').text(data.composition)
+          $('#effets').text(data.effets)
+          $('#contreindic').text(data.contreindic)
+         }
+      });
+    });
+  }
+</script>

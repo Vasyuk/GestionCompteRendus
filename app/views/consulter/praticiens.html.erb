@@ -1,1 +1,87 @@
-particiens
+<div>
+  <h5><%= select(:post, :type_id, @type_praticiens.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
+</div>
+<div>
+  <a class = "btn btn-primary" id = "selecFamille">Selectioner type</a>
+</div>
+<div class = "divSelectPraticien">
+</div>
+<table class="table" style="display:none">
+  <thead>
+  <tr>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Adresse</th>
+      <th>Ville</th>
+      <th>Code Postale</th>
+      <th>Coef</th>
+  </tr>
+  </thead>
+  <tbody class ="praticienTabl">
+    <tr>
+      <td id = "firstname">
+      </td>
+      <td id = "lastname">
+      </td>
+      <td id = "adresse">
+      </td>
+      <td id = "ville">
+      </td>
+      <td id = "code_postale">
+      </td>
+      <td id = "coefnotoriete">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- <div>
+  <a id ="firstname"></a>
+  <a id ="lastname"></a>
+  <a id ="adresse"></a>
+  <a id ="ville"></a>
+  <a id ="code_postale"></a>
+</div> -->
+<script>
+  $('#selecFamille').click(function(){
+    $('.table').css('display', 'none')
+    $.ajax({
+      url: "/praticiens",
+      type: 'get',
+      data: "codeType=" + $('#post_type_id').val(),
+      success: function(data) {
+        if (data == ""){
+          $('.divSelectPraticien').empty()
+          $('.divSelectPraticien').append('<a>Il n\'y pas de médicament pour ce type</a>')
+        }else{
+          $('.divSelectPraticien').empty()
+          $('.divSelectPraticien').append('<select id ="selectPraticien"></select>')
+
+          for(var i = 0; i < data.length; i++){
+            $('#selectPraticien').append('<option value ="'+data[i].id +'">'+data[i].firstname + " " + data[i].lastname +'</option>')
+          }
+          $('.divSelectPraticien').append('<a class = "btn btn-primary" id = "selecProduit">Selectioner praticien</a>')
+          selecPraticien()
+        }
+      }
+    });
+  });
+
+  function selecPraticien(){
+    $('#selecProduit').click(function(){
+      $.ajax({
+        url: "/praticiens",
+        type: 'get',
+        data: "idPraticien=" + $('#selectPraticien').val(),
+        success: function(data) {
+          $('.table').css('display', 'block')
+          $('#firstname').text(data.firstname)
+          $('#lastname').text(data.lastname)
+          $('#adresse').text(data.adresse)
+          $('#ville').text(data.ville)
+          $('#code_postale').text(data.code_postale)
+          $('#coefnotoriete').text(data.coefnotoriete)
+         }
+      });
+    });
+  }
+</script>
