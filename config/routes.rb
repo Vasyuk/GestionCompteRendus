@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   #consulter
   get '/autres_visiteurs', to: 'consulter#autres_visiteurs'
   get '/medicaments', to: 'consulter#medicaments'
-  post '/praticiens', to: 'consulter#praticiens'
+  get '/praticiens', to: 'consulter#praticiens'
 end

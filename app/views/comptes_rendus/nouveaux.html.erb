@@ -1,6 +1,10 @@
+<% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+<% end %>
 <h3>NUMERO : <%= @visite.numero%></h3>
 <%= form_for @visite, url: {action: "saveVisite",  :id => @visite.id}, method: :post do |f| %>
   <div class = "col-md-6">
+    <%= f.hidden_field :status, :value => "FI" %>
     <h4><%= f.label :date_visite, "Date" %></h4>
     <h5><%= f.date_field :date_visite, class: "form-control" %></h5>
     <h4><%= f.label :idPraticien, "Praticien" %></h4>
@@ -21,8 +25,24 @@
     <h4><%= f.label :produit2, "Produit 2 : " %></h4>
     <h5><%= f.collection_select :produit2, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {class: "form-control"} %></h5>
     <h3>Echanitllons</h3>
-    <div class = "echantillon">
-      <%= f.collection_select :produit1, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial %>
+    <%= f.collection_select :produit2, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {id: "echantillon"} %>
+    <a class = "btn btn-primary" id = "add">Ajoutez</a>
+    <div class = "echantillons">
+      <table class="table">
+        <thead>
+        <tr>
+            <th>Numero</th>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody class ="echantillonsChoisies">
+          <tr class ="echantillonVide">
+            <td id = "numero">1</td>
+            <td id = "title" >Jezfzefezfezfzedzdzazfzefzefzefzefezfz</td>
+            <td>Supprimer</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <div style = "text-align:center" class = "col-md-12">
@@ -31,6 +51,32 @@
 <% end %>
 
 <script>
+
+$('#add').click(function() {
+
+  if ($('.echantillon').length <= 9){
+    var num = $('.echantillon').length + 1
+    $(".echantillonsChoisies").append( "<tr class =\"echantillon\"><td id = \"numero\">"+ num + "</td><td id = \"title\" >"+ $("#echantillon option:selected").text() +"</td><td>Supprimer</td></tr>" );
+    $('#echantillon option').each(function( index, element ) {
+      if ($(element).text() == $("#echantillon option:selected").text()){
+        $(element).remove()
+        // var notTake
+        // $(element).css('display','none').addClass('used')
+        // $('#echantillon option').each(function( index, element ) {
+        //   if(!$(element).hasClass('used')){
+        //     notTake = index
+        //     return false
+        //   }
+        // });
+        // $( "#echantillon option" ).eq(notTake).attr('selected','selected')
+        // return false
+      }
+    });
+  }else{
+    alert("Vous pouvez avoir que 10 echantillons a la fois")
+  }
+});
+
 $( document ).ready(function() {
     $('#visite_idPraticienRemplacant').css('visibility', "hidden")
 

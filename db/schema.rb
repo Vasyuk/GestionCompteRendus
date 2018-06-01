@@ -10,11 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219150349) do
+ActiveRecord::Schema.define(version: 20180531173959) do
 
   create_table "echanitllons", force: :cascade do |t|
     t.integer "visite_id"
     t.index ["visite_id"], name: "index_echanitllons_on_visite_id"
+  end
+
+  create_table "familles", id: false, force: :cascade do |t|
+    t.string "fam_code", null: false
+    t.string "fam_libelle"
+  end
+
+  create_table "labos", id: false, force: :cascade do |t|
+    t.string "lab_code", null: false
+    t.string "lab_nom"
+    t.string "lab_chefvente"
   end
 
   create_table "motifs", force: :cascade do |t|
@@ -41,9 +52,26 @@ ActiveRecord::Schema.define(version: 20180219150349) do
     t.string "contreindic"
   end
 
+  create_table "regions", id: false, force: :cascade do |t|
+    t.string "reg_code", null: false
+    t.string "sec_code"
+    t.string "reg_num"
+  end
+
+  create_table "specialistes", id: false, force: :cascade do |t|
+    t.string "spe_code", null: false
+    t.string "spe_libelle"
+  end
+
+  create_table "type_praticiens", id: false, force: :cascade do |t|
+    t.string "type_code", null: false
+    t.string "type_libelle"
+    t.string "type_lieu"
+  end
+
   create_table "users", id: false, force: :cascade do |t|
     t.string "id", null: false
-    t.string "email", default: "", null: false
+    t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -53,10 +81,18 @@ ActiveRecord::Schema.define(version: 20180219150349) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.string "nom"
+    t.string "prenom"
+    t.string "adresse"
+    t.string "cp"
+    t.string "ville"
+    t.datetime "dateembauche"
+    t.string "labcode"
+    t.string "regcode"
+    t.string "typeUser"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

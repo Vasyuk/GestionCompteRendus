@@ -63,49 +63,134 @@ produits = ['3MYC7','TRIMYCINE','CRT','Triamcinolone  acétonide) + Néomycine +
        'DEPRIL9','DEPRAMIL','AIM','Clomipramine','Ce médicament est utilisé pour traiter les épisodes dépressifs sévères, certaines douleurs rebelles, les troubles obsessionnels compulsifs et certaines énurésies chez l\'enfant.','Ce médicament est contre-indiqué en cas de glaucome ou d\'adénome de la prostate, d\'infarctus récent, ou si vous avez reà§u un traitement par IMAO durant les 2 semaines précédentes ou en cas d\'allergie aux antidépresseurs imipraminiques.',
        'DIMIRTAM6','DIMIRTAM','AAC','Mirtazapine','Ce médicament est utilisé pour traiter les épisodes dépressifs sévères.','La prise de ce produit est contre-indiquée en cas de d\'allergie à  l\'un des constituants.',
        'DOLRIL7','DOLORIL','AAA','Acide acétylsalicylique  aspirine) + Acide ascorbique  Vitamine C) + Paracétamol','Ce médicament est utilisé dans le traitement symptomatique de la douleur ou de la fièvre.','Ce médicament est contre-indiqué en cas d\'allergie au paracétamol ou aux salicylates.']
-visiteurs = []
+visiteurs = ['a131','Villechalane','Louis','8 cours Lafontaine','29000','BREST','1992-12-11 00:00:00','BC','BN','V',
+      'a17','Andre','David','1 r Aimon de Chissée','38100','GRENOBLE','1991-08-26 00:00:00','GY','BO','V',
+      'a55','Bedos','Christian','1 r Bénédictins','65000','TARBES','1987-07-17 00:00:00','GY','FC','V',
+      'a93','Tusseau','Louis','22 r Renou','86000','POITIERS','1999-01-02 00:00:00','BC','CA','R',
+      'b13','Bentot','Pascal','11 av 6 Juin','67000','STRASBOURG','1996-03-11 00:00:00','GY','IF','V',
+      'b16','Bioret','Luc','1 r Linne','35000','RENNES','1997-03-21 00:00:00','BC','AU','V',
+      'b19','Bunisset','Francis','10 r Nicolas Chorier','85000','LA ROCHE SUR YON','1999-01-31 00:00:00','GY',"BG","V",
+      'b25','Bunisset','Denise','1 r Lionne','49100','ANGERS','1994-07-03 00:00:00','BC','AL','V',
+      'b28','Cacheux','Bernard','114 r Authie','34000','MONTPELLIER','2000-08-02 00:00:00','GY','AU','V',
+      'b34','Cadic','Eric','123 r Caponière','41000','BLOIS','1993-12-06 00:00:00','BC', 'CE', 'D',
+      'b4','Charoze','Catherine','100 pl Géants','33000','BORDEAUX','1997-09-25 00:00:00','BC','AQ',"V",
+      'b50','Clepkens','Christophe','12 r Fédérico Garcia Lorca','13000','MARSEILLE','1998-01-18 00:00:00','BC','HN','V',
+      'b59','Cottin','Vincenne','36 sq Capucins','5000','GAP','1995-10-21 00:00:00','GY','IF','V',
+      'c14','Daburon','François','13 r Champs Elysées','6000','NICE','1989-02-01 00:00:00','BC','FC','V',
+      'c3','De','Philippe','13 r Charles Peguy','10000','TROYES','1992-05-05 00:00:00','BC','BO','V',
+      'c54','Debelle','Michel','181 r Caponière','88000','EPINAL','1991-04-09 00:00:00','BC','AL', 'V',
+      'd13','Debelle','Jeanne','134 r Stalingrad','44000','NANTES','1991-12-05 00:00:00','BC','BN', 'V',
+      'd51','Debroise','Michel','2 av 6 Juin','70000','VESOUL','1997-11-18 00:00:00','GY','CA','V',
+      'e22','Desmarquest','Nathalie','14 r Fédérico Garcia Lorca','54000','NANCY','1989-03-24 00:00:00','GY', 'AL', 'V',
+      'e24','Desnost','Pierre','16 r Barral de Montferrat','55000','VERDUN','1993-05-17 00:00:00','BC','AL','D',
+      'e39','Dudouit','Frédéric','18 quai Xavier Jouvin','75000','PARIS','1988-04-26 00:00:00','GY', 'IF', 'V',
+      'e49','Duncombe','Claude','19 av Alsace Lorraine','9000','FOIX','1996-02-19 00:00:00','GY','CA','V',
+      'e5','Enault-Pascreau','Céline','25B r Stalingrad','40000','MONT DE MARSAN','1990-11-27 00:00:00','GY','BG','V',
+      'e52','Eynde','Valérie','3 r Henri Moissan','76000','ROUEN','1991-10-31 00:00:00','GY','HN','V',
+      'f21','Finck','Jacques','rte Montreuil Bellay','74000','ANNECY','1993-06-08 00:00:00','BC','CE','V',
+      'f39','Frémont','Fernande','4 r Jean Giono','69000','LYON','1997-02-15 00:00:00','GY','CE','R',
+      'f4','Gest','Alain','30 r Authie','46000','FIGEAC','1994-05-03 00:00:00','GY','AQ','V',
+      'g19','Gheysen','Galassus','32 bd Mar Foch','75000','PARIS','1996-01-18 00:00:00','BC','AQ','V',
+      'g30','Girard','Yvon','31 av 6 Juin','80000','AMIENS','1999-03-27 00:00:00','GY','FC','V',
+      'g53','Gombert','Luc','32 r Emile Gueymard','56000','VANNES','1985-10-02 00:00:00','GY', 'BG', 'V',
+      'g7','Guindon','Caroline','40 r Mar Montgomery','87000','LIMOGES','1996-01-13 00:00:00','GY','BN','V',
+      'h13','Guindon','François','44 r Picotière','19000','TULLE','1993-05-08 00:00:00','BC', 'HN', 'V',
+      'h30','Igigabel','Guy','33 gal Arlequin','94000','CRETEIL','1998-04-26 00:00:00','BC','BO','V',
+      'h35','Jourdren','Pierre','34 av Jean Perrot','15000','AURRILLAC','1993-08-26 00:00:00','GY', 'AU', 'V']
+familles = ['AA','Antalgiques en association',
+      'AAA','Antalgiques antipyrétiques en association',
+      'AAC','Antidépresseur d\'action centrale',
+      'AAH','Antivertigineux antihistaminique H1',
+      'ABA','Antibiotique antituberculeux',
+      'ABC','Antibiotique antiacnéique local',
+      'ABP','Antibiotique de la famille des béta-lactamines (pénicilline A)',
+      'AFC','Antibiotique de la famille des cyclines',
+      'AFM','Antibiotique de la famille des macrolides',
+      'AH','Antihistaminique H1 local']
+regions = ['AL','Est','Alsace Lorraine',
+      'AQ','Sud','Aquitaine',
+      'AU','Sud','Auvergne',
+      'BG','Ouest','Bretagne',
+      'BN','Ouest','Basse Normandie',
+      'BO','Est','Bourgogne',
+      'CA','Nord','Champagne Ardennes',
+      'CE','Ouest','Centre',
+      'FC','Est','Franche Comté',
+      'HN','Nord','Haute Normandie',
+      'IF','Nord','Ile de France']
+specialistes = ['ACP','anatomie et cytologie pathologiques',
+      'AMV','angéiologie, médecine vasculaire',
+      'ARC','anesthésiologie et réanimation chirurgicale',
+      'BM','biologie médicale',
+      'CAC','cardiologie et affections cardio-vasculaires',
+      'CCT','chirurgie cardio-vasculaire et thoracique',
+      'CG','chirurgie générale',
+      'CMF','chirurgie maxillo-faciale',
+      'COM','cancérologie, oncologie médicale',
+      'COT','chirurgie orthopédique et traumatologie',
+      'CPR','chirurgie plastique reconstructrice et esthétique',
+      'CU','chirurgie urologique',
+      'CV','chirurgie vasculaire',
+      'DN','diabétologie-nutrition, nutrition',
+      'DV','dermatologie et vénéréologie',
+      'EM','endocrinologie et métabolismes',
+      'ETD','évaluation et traitement de la douleur',
+      'GEH','gastro-entérologie et hépatologie (appareil digestif)',
+      'GMO','gynécologie médicale, obstétrique',
+      'GO','gynécologie-obstétrique',
+      'HEM','maladies du sang (hématologie)',
+      'MBS','médecine et biologie du sport']
+type_praticiens = ['MH','Médecin Hospitalier','Hopital ou clinique',
+      'MV','Médecine de Ville','Cabinet',
+      'PH','Pharmacien Hospitalier','Hopital ou clinique']
 
 praticiens.each_slice(7) do |firstname, lastname, adresse, ville, code_postale, coefnotoriete, typ_code|
   Praticien.create!(:firstname => firstname, :lastname => lastname,:adresse => adresse, :ville => ville ,:code_postale => code_postale,:coefnotoriete => coefnotoriete ,:typ_code => typ_code)
 end
-produits.each_slice(6) do |depotlegal, nomcommercial,code,composition,effets,contreindic|
+produits.each_slice(6) do |depotlegal, nomcommercial, code, composition, effets, contreindic|
   Produit.create!(:id => depotlegal,:nomcommercial =>nomcommercial,:code => code ,:composition => composition , :effets => effets, :contreindic => contreindic)
 end
-
-user = User.new(
-  :id => "eg1w",
-  :username => "lvillachane",
-  :email => "lvillachane@gmail.com",
-  :password => "jux7g",
-  :password_confirmation => "jux7g"
-)
-
+visiteurs.each_slice(10) do |id, nom, prenom, adresse, cp, ville, dateembauche, labcode, regcode, typeUser|
+  password = dateembauche.sub!(" 00:00:00", "")
+  password = password.split("-")
+  password = password[2] + "-" + password[1] + "-" +password[0]
+  puts password
+  User.create!(:id => id,:nom =>nom,:prenom => prenom ,:adresse => adresse , :cp => cp, :ville => ville, :dateembauche => dateembauche, :labcode => labcode, :password => password, :password_confirmation => password, :regcode => regcode, :typeUser => typeUser )
+end
+familles.each_slice(2) do |fam_code, fam_libelle|
+  Famille.create!(:fam_code => fam_code, :fam_libelle => fam_libelle)
+end
+regions.each_slice(3) do |reg_code,sec_code,reg_num|
+  Region.create!(:reg_code => reg_code, :sec_code => sec_code, :reg_num => reg_num)
+end
+specialistes.each_slice(2) do |spe_code,spe_libelle|
+  Specialiste.create!(:spe_code => spe_code, :spe_libelle => spe_libelle)
+end
+type_praticiens.each_slice(3) do |type_code,type_libelle,type_lieu|
+  TypePraticien.create!(:type_code => type_code, :type_libelle => type_libelle ,:type_lieu => type_lieu)
+end
 
 motif1 = Motif.new(
   :title => 'Périodicité',
   :abbreviation => 'PE'
 )
-
 motif2 = Motif.new(
   :title => 'Actualisation',
   :abbreviation => 'AC'
 )
-
 motif3 = Motif.new(
   :title => 'Relance',
   :abbreviation => 'RE'
 )
-
 motif4 = Motif.new(
   :title => 'Solicitation praticien',
   :abbreviation => 'SP'
 )
-
 motif5 = Motif.new(
   :title => 'Autre',
   :abbreviation => 'Au'
 )
-user.save!
+
 motif1.save!
 motif2.save!
 motif3.save!

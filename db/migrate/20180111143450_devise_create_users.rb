@@ -5,7 +5,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
     create_table :users, id: false, force: true do |t|
       t.string 'id', null: false
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      t.string :email,              null: true, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
@@ -22,6 +22,15 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
+      t.string :nom
+      t.string :prenom
+      t.string :adresse
+      t.string :cp
+      t.string :ville
+      t.datetime :dateembauche
+      t.string :labcode
+      t.string :regcode
+      t.string :typeUser
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at
@@ -37,7 +46,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
