@@ -1,10 +1,10 @@
-<div>
+<div style="text-align:center">
   <h5><%= select(:post, :famille_id, @familles.collect {|f| [ f.fam_libelle , f.fam_code] }) %></h5>
 </div>
-<div>
+<div style="text-align:center">
   <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
 </div>
-<div class = "divSelectProduit">
+<div class = "divSelectProduit" style="text-align:center; margin:10px 0">
 </div>
 <table class="table" style="display:none">
   <thead>
@@ -45,7 +45,7 @@
           for(var i = 0; i < data.length; i++){
             $('#selectProduit').append('<option value ="'+data[i].id +'">'+data[i].nomcommercial+'</option>')
           }
-          $('.divSelectProduit').append('<a class = "btn btn-primary" id = "selecProduit">Selectioner produit</a>')
+          $('.divSelectProduit').append('<p style ="margin:10px 0"><a class = "btn btn-primary" id = "selecProduit">Selectioner produit</a></p>')
           selecProduit()
         }
       }

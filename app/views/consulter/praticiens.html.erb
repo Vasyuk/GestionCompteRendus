@@ -1,10 +1,10 @@
-<div>
+<div style="text-align:center; margin:10px 0">
   <h5><%= select(:post, :type_id, @type_praticiens.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
 </div>
-<div>
+<div style="text-align:center; margin:10px 0">
   <a class = "btn btn-primary" id = "selecFamille">Selectioner type</a>
 </div>
-<div class = "divSelectPraticien">
+<div class = "divSelectPraticien" style="text-align:center; margin:10px 0">
 </div>
 <table class="table" style="display:none">
   <thead>
@@ -59,7 +59,7 @@
           for(var i = 0; i < data.length; i++){
             $('#selectPraticien').append('<option value ="'+data[i].id +'">'+data[i].firstname + " " + data[i].lastname +'</option>')
           }
-          $('.divSelectPraticien').append('<a class = "btn btn-primary" id = "selecProduit">Selectioner praticien</a>')
+          $('.divSelectPraticien').append('<p style = "margin:10px 0"><a class = "btn btn-primary" id = "selecProduit">Selectioner praticien</a></p>')
           selecPraticien()
         }
       }

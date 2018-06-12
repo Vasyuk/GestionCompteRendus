@@ -4,6 +4,7 @@
 <h3>NUMERO : <%= @visite.numero%></h3>
 <%= form_for @visite, url: {action: "saveVisite",  :id => @visite.id}, method: :post do |f| %>
   <div class = "col-md-6">
+    <%= hidden_field_tag 'inputEchantillon' %>
     <%= f.hidden_field :status, :value => "FI" %>
     <h4><%= f.label :date_visite, "Date" %></h4>
     <h5><%= f.date_field :date_visite, class: "form-control" %></h5>
@@ -46,31 +47,64 @@
 <% end %>
 
 <script>
+deleteEchantillon()
+change()
+
+function change(){
+  $('.echantillon').off();
+}
+
+function addToInput(echnat){
+  if($('#inputEchantillon').val() == ""){
+    $('#inputEchantillon').val(echnat)
+  }else{
+    sd = $('#inputEchantillon').val() + "," + echnat
+    $('#inputEchantillon').val(sd)
+  }
+}
+
+function deleteFromInput(echnat){
+  echantillons = $('#inputEchantillon').val().replace(echnat, "")
+  $('#inputEchantillon').val(echantillons)
+}
+
+function recompterNum(){
+  $('.echantillonsChoisies tr td:first-child').each(function( index, element ) {
+    $(this).html(index + 1)
+  })
+}
 
 $('#add').click(function() {
-
   if ($('.echantillon').length <= 9){
     var num = $('.echantillon').length + 1
-    $(".echantillonsChoisies").append( "<tr class =\"echantillon\"><td id = \"numero\">"+ num + "</td><td id = \"title\" >"+ $("#echantillon option:selected").text() +"</td><td>Supprimer</td></tr>" );
+    addToInput($("#echantillon option:selected").text())
+    $(".echantillonsChoisies").append( "<tr class =\"echantillon\"><td id = \"numero\">"+ num + "</td><td id = \"title\""+num+" >"+ $("#echantillon option:selected").text() +"</td><td><a class = \"deleteEchantillon\">Supprimer</a></td></tr>" );
+    selected_el = $("#echantillon option:selected").text()
     $('#echantillon option').each(function( index, element ) {
-      if ($(element).text() == $("#echantillon option:selected").text()){
+      if ($(element).text() == selected_el){
         $(element).remove()
-        // var notTake
-        // $(element).css('display','none').addClass('used')
-        // $('#echantillon option').each(function( index, element ) {
-        //   if(!$(element).hasClass('used')){
-        //     notTake = index
-        //     return false
-        //   }
-        // });
-        // $( "#echantillon option" ).eq(notTake).attr('selected','selected')
-        // return false
       }
     });
   }else{
     alert("Vous pouvez avoir que 10 echantillons a la fois")
   }
+
+  deleteEchantillon()
+  change()
 });
+
+function deleteEchantillon(){
+  $('.deleteEchantillon').off();
+  $( '.deleteEchantillon' ).click(function(){
+    name = $(this).parent().parent().children('td').slice(1).html()
+    $("#echantillon").append('<option value="'+name+'">'+name+'</option>')
+    $(this).parent().parent().remove()
+    deleteFromInput(name)
+    recompterNum()
+    change()
+  });
+}
+
 
 $( document ).ready(function() {
     $('#visite_idPraticienRemplacant').css('visibility', "hidden")

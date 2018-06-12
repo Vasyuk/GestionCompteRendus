@@ -1,27 +1,205 @@
 <%if @visite != nil%>
+<% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+<% end %>
   <h3>Comptes-Rendus : <%= @visite.numero%> / <%= @size%></h3>
-  <div class = "col-md-6">
-    <h5>Id</h5>
-    <h4><%= @visite.id%></h4>
-    <h4>Date Visite</h4>
-    <h5><%= @visite.date_visite%></h5>
-    <h4>Praticien</h4>
-    <h5><%= @praticien.firstname + " " + @praticien.lastname%></h5>
-    <h4>Motif</h4>
-    <h5><%= @visite.motif%></h5>
-    <h4>Bilan</h4>
-    <p style = "text-align:center"><%= @visite.bilan%></p>
+  <div id = "inputHidden"  style = "display:block">
+    <div class = "col-md-6">
+      <h5>Id</h5>
+      <h4><%= @visite.id%></h4>
+      <h4>Date Visite</h4>
+      <h5><%= @visite.date_visite%></h5>
+      <h4>Praticien</h4>
+      <h5><%= @praticien.firstname + " " + @praticien.lastname%></h5>
+      <h4>Remplacent</h4>
+      <%if  !@remplacent.blank?%>
+        <h5><%= @remplacent.firstname + " " + @remplacent.lastname%></h5>
+      <%else%>
+        <h5>-</h5>
+      <%end%>
+      <h4>Motif</h4>
+      <h5><%= @visite.motif%></h5>
+      <h4>Bilan</h4>
+      <p style = "text-align:center"><%= @visite.bilan%></p>
+    </div>
+    <div class = "col-md-6">
+      <h3>Produits</h3>
+        <h5><%= @visite.produit1%></h5>
+        <h5><%= @visite.produit2%></h5>
+      <h3>Echanitllons</h3>
+        <%@echanitllons.each do |echanitllon|%>
+        <h5><%=echanitllon.nomcommercial%></h5>
+        <%end%>
+    </div>
+    <div style = "text-align:center" class = "col-md-12">
+      <%= link_to "Precedent", consulter_path( :prev => @visite.numero ), class: "btn-primary btn" %>
+      <a id ="modifer" class = "btn-primary btn">Modifier</a>
+      <%= link_to "Suivant", consulter_path( :next => @visite.numero ),class: "btn-primary btn" %>
+    </div>
   </div>
-  <div class = "col-md-6">
-    <h3>Produits</h3>
-      <h5><%= @visite.produit1%></h5>
-      <h5><%= @visite.produit2%></h5>
-    <h3>Echanitllons</h3>
-  </div>
-  <div style = "text-align:center" class = "col-md-12">
-    <%= link_to "Precedent", consulter_path( :prev => @visite.numero ), class: "btn-primary btn" %>
-    <%= link_to "Suivant", consulter_path( :next => @visite.numero ),class: "btn-primary btn" %>
+  <div id ="inputShow" style = "display:none">
+    <%= form_for @visite, url: {action: "saveVisite",  :id => @visite.id}, method: :post do |f| %>
+      <div class = "col-md-6">
+        <%= hidden_field_tag 'consulter',  'true' %>
+        <%= hidden_field_tag 'inputEchantillon' %>
+        <%= f.hidden_field :status, :value => "FI" %>
+        <h4><%= f.label :date_visite, "Date" %></h4>
+        <h5><%= f.date_field :date_visite, class: "form-control" %></h5>
+        <h4><%= f.label :idPraticien, "Praticien" %></h4>
+        <h5><%= f.collection_select :idPraticien, @praticiens.order(:firstname),:id,:firstname, {}, {class: "form-control"} %></h5>
+        <h4><input type="checkbox" class = "showHideRemplacent"></input><%= f.label :idPraticienRemplacant, "Remplacent" %></h4>
+        <h5><%= f.collection_select :idPraticienRemplacant, @praticiens.order(:firstname),:id,:firstname,{},{:disabled => "disabled" } %></h5>
+        <h4><%= f.label :coefficient %></h4>
+        <h5><%= f.text_field :coefficient, class: "form-control" %></h5>
+        <h4><%= f.label :motif %></h4>
+        <h5><%= f.collection_select :motif, @motifs,:title,:title, {}, {class: "form-control"} %></h5>
+        <h4><%= f.label :bilan %></h4>
+        <h5><%= f.text_area :bilan, class: "form-control" %></h5>
+      </div>
+      <div class = "col-md-6">
+        <h3>Produits</h3>
+        <h4><%= f.label :produit1, "Produit 1 : " %></h4>
+        <h5><%= f.collection_select :produit1, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {class: "form-control"} %></h5>
+        <h4><%= f.label :produit2, "Produit 2 : " %></h4>
+        <h5><%= f.collection_select :produit2, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {class: "form-control"} %></h5>
+        <h3>Echanitllons</h3>
+        <%= f.collection_select :produit2, @produits.order(:nomcommercial),:nomcommercial,:nomcommercial, {}, {id: "echantillon"} %>
+        <a class = "btn btn-primary" id = "add">Ajoutez</a>
+        <div class = "echantillons">
+          <table class="table">
+            <thead>
+            <tr>
+                <th>Numero</th>
+                <th>Nom</th>
+            </tr>
+            </thead>
+            <tbody class ="echantillonsChoisies">
+              <%@echanitllons.each_with_index do |echant, index|%>
+                <tr class ="echantillon">
+                  <td id = "numero"><%=index +1%></td>
+                  <td class = "title" id = "title"><%=echant.nomcommercial%></td>
+                  <td><a class = "deleteEchantillon">Supprimer</a></td>
+                </tr>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style = "text-align:center" class = "col-md-12">
+        <%= link_to "Precedent", consulter_path( :prev => @visite.numero ), class: "btn-primary btn" %>
+        <%= f.submit "Valider", class: "btn btn-primary"  %>
+        <%= link_to "Suivant", consulter_path( :next => @visite.numero ),class: "btn-primary btn" %>
+      </div>
+    <% end %>
+
   </div>
 <%else%>
   <h2 style = "text-align:center; margin-top:5%">Vous n'avez encore aucun compte-rendus</h2>
 <%end%>
+
+
+
+<script>
+optionsSelect()
+
+function optionsSelect(){
+  $('.title').each(function(index, elemente) {
+    addToInput($(elemente).text())
+    $('#echantillon option').each(function( index, element ) {
+      // console.log($('#inputEchantillon').val())
+      if ($(element).text() == $(elemente).text()){
+        $(element).remove()
+      }
+    })
+  })
+}
+
+
+$('#modifer').click(function() {
+  $('#inputHidden').css("display", "none")
+  $('#inputShow').css("display", "block")
+})
+
+
+deleteEchantillon()
+change()
+
+function change(){
+  $('.echantillon').off();
+}
+
+function addToInput(echnat){
+  if($('#inputEchantillon').val() == ""){
+    $('#inputEchantillon').val(echnat)
+  }else{
+    sd = $('#inputEchantillon').val() + "," + echnat
+    $('#inputEchantillon').val(sd)
+  }
+}
+
+function deleteFromInput(echnat){
+  echantillons = $('#inputEchantillon').val().replace(echnat, "")
+  $('#inputEchantillon').val(echantillons)
+}
+
+function recompterNum(){
+  $('.echantillonsChoisies tr td:first-child').each(function( index, element ) {
+    $(this).html(index + 1)
+  })
+}
+
+$('#add').click(function() {
+  if ($('.echantillon').length <= 9){
+    var num = $('.echantillon').length + 1
+    addToInput($("#echantillon option:selected").text())
+    $(".echantillonsChoisies").append( "<tr class =\"echantillon\"><td id = \"numero\">"+ num + "</td><td class = \"title\" id = \"title\""+num+" >"+ $("#echantillon option:selected").text() +"</td><td><a class = \"deleteEchantillon\">Supprimer</a></td></tr>" );
+    selected_el = $("#echantillon option:selected").text()
+    $('#echantillon option').each(function( index, element ) {
+      if ($(element).text() == selected_el){
+        $(element).remove()
+      }
+    });
+  }else{
+    alert("Vous pouvez avoir que 10 echantillons a la fois")
+  }
+
+  deleteEchantillon()
+  change()
+});
+
+function deleteEchantillon(){
+  $('.deleteEchantillon').off();
+  $( '.deleteEchantillon' ).click(function(){
+    name = $(this).parent().parent().children('td').slice(1).html()
+    $("#echantillon").append('<option value="'+name+'">'+name+'</option>')
+    $(this).parent().parent().remove()
+    deleteFromInput(name)
+    recompterNum()
+    change()
+  });
+}
+
+
+$( document ).ready(function() {
+  <%if  !@remplacent.blank?%>
+    $('#visite_idPraticienRemplacant').css('visibility', "visible")
+    $('#visite_idPraticienRemplacant').prop('disabled', false)
+    $('input.showHideRemplacent').prop('checked', true);
+  <%else%>
+    $('#visite_idPraticienRemplacant').css('visibility', "hidden")
+  <%end%>
+  $('.showHideRemplacent').click(function() {
+    if ($('input.showHideRemplacent').is(':checked')) {
+      $('#visite_idPraticienRemplacant').prop('disabled', false)
+      $('#visite_idPraticienRemplacant').css('visibility', "visible")
+    }else{
+      $('#visite_idPraticienRemplacant').prop('disabled', true)
+      $('#visite_idPraticienRemplacant').css('visibility', "hidden")
+      $('#visite_idPraticienRemplacant').val(0)
+    }
+  });
+});
+
+
+
+</script>

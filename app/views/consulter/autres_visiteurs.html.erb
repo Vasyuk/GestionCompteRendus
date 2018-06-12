@@ -1,13 +1,13 @@
-<div>
+<div style="text-align:center; margin:10px 0">>
   <h5><%= select(:post, :type_id, @regions.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
 </div>
-<div>
+<div style="text-align:center; margin:10px 0">>
   <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
 </div>
-<div>
+<div style="text-align:center; margin:10px 0">>
   <h5><%= select(:post, :type_id, @labos.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
 </div>
-<div>
+<div style="text-align:center; margin:10px 0">>
   <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
 </div>
 <div class = "divSelectProduit">
