@@ -6,7 +6,8 @@
 </div>
 <div class = "divSelectProduit" style="text-align:center; margin:10px 0">
 </div>
-<table class="table" style="display:none">
+<div  class = "tableDiv" style="display: none">
+  <table class="table">
   <thead>
   <tr>
       <th>Nom</th>
@@ -28,9 +29,10 @@
     </tr>
   </tbody>
 </table>
+</div>
 <script>
   $('#selecFamille').click(function(){
-    $('.table').css('display', 'none')
+    $('.tableDiv').css('display', 'none')
     $.ajax({
       url: "/medicaments",
       type: 'get',
@@ -59,7 +61,7 @@
         type: 'get',
         data: "codeProduit=" + $('#selectProduit').val(),
         success: function(data) {
-          $('.table').css('display', 'block')
+          $('.tableDiv').css('display', 'block')
           $('#nomcommercial').text(data.nomcommercial)
           $('#composition').text(data.composition)
           $('#effets').text(data.effets)

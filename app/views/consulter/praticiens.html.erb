@@ -6,7 +6,8 @@
 </div>
 <div class = "divSelectPraticien" style="text-align:center; margin:10px 0">
 </div>
-<table class="table" style="display:none">
+<div  class = "tableDiv" style="display: none">
+  <table class="table" >
   <thead>
   <tr>
       <th>Nom</th>
@@ -34,6 +35,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 <!-- <div>
   <a id ="firstname"></a>
   <a id ="lastname"></a>
@@ -43,7 +45,7 @@
 </div> -->
 <script>
   $('#selecFamille').click(function(){
-    $('.table').css('display', 'none')
+    $('.tableDiv').css('display', 'none')
     $.ajax({
       url: "/praticiens",
       type: 'get',
@@ -73,7 +75,7 @@
         type: 'get',
         data: "idPraticien=" + $('#selectPraticien').val(),
         success: function(data) {
-          $('.table').css('display', 'block')
+          $('.tableDiv').css('display', 'block')
           $('#firstname').text(data.firstname)
           $('#lastname').text(data.lastname)
           $('#adresse').text(data.adresse)

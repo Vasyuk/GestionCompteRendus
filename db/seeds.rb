@@ -63,22 +63,22 @@ produits = ['3MYC7','TRIMYCINE','CRT','Triamcinolone  acétonide) + Néomycine +
        'DEPRIL9','DEPRAMIL','AIM','Clomipramine','Ce médicament est utilisé pour traiter les épisodes dépressifs sévères, certaines douleurs rebelles, les troubles obsessionnels compulsifs et certaines énurésies chez l\'enfant.','Ce médicament est contre-indiqué en cas de glaucome ou d\'adénome de la prostate, d\'infarctus récent, ou si vous avez reà§u un traitement par IMAO durant les 2 semaines précédentes ou en cas d\'allergie aux antidépresseurs imipraminiques.',
        'DIMIRTAM6','DIMIRTAM','AAC','Mirtazapine','Ce médicament est utilisé pour traiter les épisodes dépressifs sévères.','La prise de ce produit est contre-indiquée en cas de d\'allergie à  l\'un des constituants.',
        'DOLRIL7','DOLORIL','AAA','Acide acétylsalicylique  aspirine) + Acide ascorbique  Vitamine C) + Paracétamol','Ce médicament est utilisé dans le traitement symptomatique de la douleur ou de la fièvre.','Ce médicament est contre-indiqué en cas d\'allergie au paracétamol ou aux salicylates.']
-visiteurs = ['a131','Villechalane','Louis','8 cours Lafontaine','29000','BREST','1992-12-11 00:00:00','BC','BN','V',
-      'a17','Andre','David','1 r Aimon de Chissée','38100','GRENOBLE','1991-08-26 00:00:00','GY','BO','V',
-      'a55','Bedos','Christian','1 r Bénédictins','65000','TARBES','1987-07-17 00:00:00','GY','FC','V',
-      'a93','Tusseau','Louis','22 r Renou','86000','POITIERS','1999-01-02 00:00:00','BC','CA','R',
+visiteurs = ['a131','Villechalane','Louis','8 cours Lafontaine','29000','BREST','1992-12-11 00:00:00','SW','BN','V',
+      'a17','Andre','David','1 r Aimon de Chissée','38100','GRENOBLE','1991-08-26 00:00:00','SW','BO','V',
+      'a55','Bedos','Christian','1 r Bénédictins','65000','TARBES','1987-07-17 00:00:00','SW','FC','V',
+      'a93','Tusseau','Louis','22 r Renou','86000','POITIERS','1999-01-02 00:00:00','SW','SW','R',
       'b13','Bentot','Pascal','11 av 6 Juin','67000','STRASBOURG','1996-03-11 00:00:00','GY','IF','V',
-      'b16','Bioret','Luc','1 r Linne','35000','RENNES','1997-03-21 00:00:00','BC','AU','V',
+      'b16','Bioret','Luc','1 r Linne','35000','RENNES','1997-03-21 00:00:00','SW','AU','V',
       'b19','Bunisset','Francis','10 r Nicolas Chorier','85000','LA ROCHE SUR YON','1999-01-31 00:00:00','GY',"BG","V",
       'b25','Bunisset','Denise','1 r Lionne','49100','ANGERS','1994-07-03 00:00:00','BC','AL','V',
-      'b28','Cacheux','Bernard','114 r Authie','34000','MONTPELLIER','2000-08-02 00:00:00','GY','AU','V',
+      'b28','Cacheux','Bernard','114 r Authie','34000','MONTPELLIER','2000-08-02 00:00:00','SW','AU','V',
       'b34','Cadic','Eric','123 r Caponière','41000','BLOIS','1993-12-06 00:00:00','BC', 'CE', 'D',
       'b4','Charoze','Catherine','100 pl Géants','33000','BORDEAUX','1997-09-25 00:00:00','BC','AQ',"V",
       'b50','Clepkens','Christophe','12 r Fédérico Garcia Lorca','13000','MARSEILLE','1998-01-18 00:00:00','BC','HN','V',
-      'b59','Cottin','Vincenne','36 sq Capucins','5000','GAP','1995-10-21 00:00:00','GY','IF','V',
+      'b59','Cottin','Vincenne','36 sq Capucins','5000','GAP','1995-10-21 00:00:00','SW','IF','V',
       'c14','Daburon','François','13 r Champs Elysées','6000','NICE','1989-02-01 00:00:00','BC','FC','V',
       'c3','De','Philippe','13 r Charles Peguy','10000','TROYES','1992-05-05 00:00:00','BC','BO','V',
-      'c54','Debelle','Michel','181 r Caponière','88000','EPINAL','1991-04-09 00:00:00','BC','AL', 'V',
+      'c54','Debelle','Michel','181 r Caponière','88000','EPINAL','1991-04-09 00:00:00','SW','AL', 'V',
       'd13','Debelle','Jeanne','134 r Stalingrad','44000','NANTES','1991-12-05 00:00:00','BC','BN', 'V',
       'd51','Debroise','Michel','2 av 6 Juin','70000','VESOUL','1997-11-18 00:00:00','GY','CA','V',
       'e22','Desmarquest','Nathalie','14 r Fédérico Garcia Lorca','54000','NANCY','1989-03-24 00:00:00','GY', 'AL', 'V',
@@ -189,6 +189,28 @@ motif5 = Motif.new(
   :title => 'Autre',
   :abbreviation => 'Au'
 )
+
+labo1 = Labo.new(
+  :lab_code => 'BC',
+  :lab_nom => 'Bichat',
+  :lab_chefvente => 'Suzanne Terminus'
+)
+
+labo2 = Labo.new(
+  :lab_code => 'GY',
+  :lab_nom => 'Gyverny',
+  :lab_chefvente => 'Marcel MacDouglas'
+)
+
+labo3 = Labo.new(
+  :lab_code => 'SW',
+  :lab_nom => 'Swiss Kane',
+  :lab_chefvente => 'Alain Poutre'
+)
+
+labo1.save!
+labo2.save!
+labo3.save!
 
 motif1.save!
 motif2.save!

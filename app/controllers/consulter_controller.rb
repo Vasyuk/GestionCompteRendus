@@ -28,12 +28,12 @@ class ConsulterController < ApplicationController
 
   def autres_visiteurs
     if current_user.typeUser == "R" || current_user.typeUser == "D"
-      @regions = Regions.all
+      @regions = Region.all
       @labos = Labo.all
-      if !params[:labcode].blank?
-        @users = User.where(:regcode => params[:regcode], :labcode => params[:labcode] )
+      if !params[:codeLabo].blank?
+        @users = User.where(:regcode => params[:codeRegion], :labcode => params[:codeLabo] )
         render :json => @users
-      elsif  !params[:idUser].blank?
+      elsif !params[:idUser].blank?
         @user = User.find(params[:idUser])
         render :json => @user
       end

@@ -12,7 +12,7 @@
       <h4>Praticien</h4>
       <h5><%= @praticien.firstname + " " + @praticien.lastname%></h5>
       <h4>Remplacent</h4>
-      <%if  !@remplacent.blank?%>
+      <%if !@remplacent.blank?%>
         <h5><%= @remplacent.firstname + " " + @remplacent.lastname%></h5>
       <%else%>
         <h5>-</h5>
@@ -32,9 +32,9 @@
         <%end%>
     </div>
     <div style = "text-align:center" class = "col-md-12">
-      <%= link_to "Precedent", consulter_path( :prev => @visite.numero ), class: "btn-primary btn" %>
+      <%= link_to "Precedent", consulter_path( :prev => @visite.numero,:id => @user.id ), class: "btn-primary btn" %>
       <a id ="modifer" class = "btn-primary btn">Modifier</a>
-      <%= link_to "Suivant", consulter_path( :next => @visite.numero ),class: "btn-primary btn" %>
+      <%= link_to "Suivant", consulter_path( :next => @visite.numero ,:id => @user.id),class: "btn-primary btn" %>
     </div>
   </div>
   <div id ="inputShow" style = "display:none">
@@ -86,15 +86,15 @@
         </div>
       </div>
       <div style = "text-align:center" class = "col-md-12">
-        <%= link_to "Precedent", consulter_path( :prev => @visite.numero ), class: "btn-primary btn" %>
+        <%= link_to "Precedent", consulter_path( :prev => @visite.numero ,:id => @user.id), class: "btn-primary btn" %>
         <%= f.submit "Valider", class: "btn btn-primary"  %>
-        <%= link_to "Suivant", consulter_path( :next => @visite.numero ),class: "btn-primary btn" %>
+        <%= link_to "Suivant", consulter_path( :next => @visite.numero, :id => @user.id ),class: "btn-primary btn" %>
       </div>
     <% end %>
 
   </div>
 <%else%>
-  <h2 style = "text-align:center; margin-top:5%">Vous n'avez encore aucun compte-rendus</h2>
+  <h2 style = "text-align:center; margin-top:5%">Encore aucun compte-rendus</h2>
 <%end%>
 
 

@@ -2,7 +2,13 @@ class ComptesRendusController < ApplicationController
 
   def consulter
     if current_user.typeUser == "V" || current_user.typeUser == "D"
-      @visites = Visite.where(user_id: current_user, status: "FI")
+
+      if params[:id].blank?
+        @user = User.find(current_user.id)
+      else
+        @user = User.find(params[:id])
+      end
+      @visites = Visite.where(user_id: @user.id, status: "FI")
       @size = @visites.size
       @praticiens = Praticien.all
       @produits = Produit.all
@@ -101,7 +107,7 @@ class ComptesRendusController < ApplicationController
           produitId =  Produit.find_by(:nomcommercial => k).id
           Echanitllon.create!(:visite_id => @visite.id, :id_produit => produitId)
         end
-      end      
+      end
       if params[:consulter] == "true"
         redirect_back fallback_location: root_path
       else

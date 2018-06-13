@@ -1,36 +1,109 @@
-<div style="text-align:center; margin:10px 0">>
-  <h5><%= select(:post, :type_id, @regions.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
+<div style="text-align:center; margin:10px 0">
+  <h5><%= select(:post, :reg_id, @regions.collect {|f| [ f.reg_num , f.reg_code] }) %></h5>
 </div>
-<div style="text-align:center; margin:10px 0">>
-  <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
+<div style="text-align:center; margin:10px 0">
+  <a class = "btn btn-primary" id = "selectRegion">Selectioner region</a>
 </div>
-<div style="text-align:center; margin:10px 0">>
-  <h5><%= select(:post, :type_id, @labos.collect {|f| [ f.type_libelle , f.type_code] }) %></h5>
+<div id = "labos" style = "display:none">
+  <div style="text-align:center; margin:10px 0">
+    <h5><%= select(:post, :lab_id, @labos.collect {|f| [ f.lab_nom , f.lab_code] }) %></h5>
+  </div>
+  <div style="text-align:center; margin:10px 0">
+    <a class = "btn btn-primary" id = "selectLabo">Selectioner laboratoire</a>
+  </div>
 </div>
-<div style="text-align:center; margin:10px 0">>
-  <a class = "btn btn-primary" id = "selecFamille">Selectioner famille</a>
+<div class = "divSelectProduit" style="text-align:center; margin:10px 0">
 </div>
-<div class = "divSelectProduit">
-</div>
-<table class="table" style="display:none">
-  <thead>
-  <tr>
-      <th>Nom</th>
-      <th>Composition</th>
-      <th>Effets</th>
-      <th>Contreindictions</th>
-  </tr>
-  </thead>
-  <tbody class ="praticienTabl">
+<div id = "tableInfo" class = "tableDiv" style="visibility: hidden">
+  <h3>Info</h3>
+  <table  class="table" >
+    <thead>
     <tr>
-      <td id = "nomcommercial">
-      </td>
-      <td id = "composition">
-      </td>
-      <td id = "effets">
-      </td>
-      <td id = "contreindic">
-      </td>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Adresse</th>
+        <th>Ville</th>
+        <th>Cp</th>
+        <th>Dateembauche</th>
+        <th>Comptes-Rendus</th>
     </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody class ="praticienTabl">
+      <tr>
+        <td id = "nom">
+        </td>
+        <td id = "prenom">
+        </td>
+        <td id = "adresse">
+        </td>
+        <td id = "ville">
+        </td>
+        <td id = "cp">
+        </td>
+        <td id = "dateembauche">
+        </td>
+        <td id ="comptesRendusToHide">
+          <a id = "comptesRendus">Voire</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+
+$('#selectLabo').click(function(){
+  $('.tableDiv').css('visibility', 'hidden')
+  $.ajax({
+    url: "/autres_visiteurs",
+    type: 'get',
+    data: "codeRegion=" + $('#post_reg_id').val() +"&codeLabo="+ $('#post_lab_id').val(),
+    success: function(data) {
+      if (data == ""){
+        $('.divSelectProduit').empty()
+        $('.divSelectProduit').append('<a>Il n\'y pas de visiteur pour cette region et cette laboratoire</a>')
+      }else{
+        $('.divSelectProduit').empty()
+        $('.divSelectProduit').append('<select id ="selectVisiteur"></select>')
+        for(var i = 0; i < data.length; i++){
+          $('#selectVisiteur').append('<option value ="'+data[i].id +'">'+data[i].nom +" "+data[i].prenom +'</option>')
+        }
+        $('.divSelectProduit').append('<p style ="margin:10px 0"><a class = "btn btn-primary" id = "btnVisiteur">Selectioner visiteur</a></p>')
+        selectVisiteur()
+      }
+    }
+  });
+});
+
+function selectVisiteur(){
+  $('#btnVisiteur').click(function(){
+    $.ajax({
+      url: "/autres_visiteurs",
+      type: 'get',
+      data: "idUser=" + $('#selectVisiteur').val(),
+      success: function(data) {
+          $('.tableDiv').css('visibility', 'visible')
+          $('#nom').text(data.nom)
+          $('#prenom').text(data.prenom)
+          $('#adresse').text(data.adresse)
+          $('#ville').text(data.ville)
+          $('#cp').text(data.cp)
+          $('#dateembauche').text(data.dateembauche)
+          if (data.typeUser == "R"){
+            $('#comptesRendusToHide').css("display","none")
+          }else{
+              $("#comptesRendus").attr("href", "/consulter?id=" + data.id)
+          }
+         }
+    });
+  });
+}
+
+$('#selectRegion').click(function(){
+    $('.tableDiv').css('visibility', 'hidden')
+    $('.divSelectProduit').empty()
+    $('#labos').css("display","block")
+
+  })
+
+
+</script>
